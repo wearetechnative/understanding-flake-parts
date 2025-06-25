@@ -3,6 +3,7 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     devshell.url = "github:numtide/devshell";
+    inputs.import-tree.url = "github:vic/import-tree";
   };
 
   outputs =
@@ -18,10 +19,7 @@
 
         flake.flakeModules.default = {
           imports = [
-            ./flake-modules/nixos/cron.nix
-            ./flake-modules/nixos/nginx.nix
-            ./flake-modules/nixos/hello.nix
-            ./flake-modules/nixos/more-apps.nix
+            (inputs.import-tree ./flake-modules)
           ];
         };
 

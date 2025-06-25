@@ -31,7 +31,7 @@
               name = "services-nixos-module";
               nodes.machine1 = { config, pkgs, ... }: {
                 imports = [
-                  inputs.provider.flakeModule
+                  inputs.provider.flakeModules.default
                   #                  inputs.provider.flakeModules.cron
                   #                  inputs.provider.flakeModules.nginx
                   #                  inputs.provider.flakeModules.hello
