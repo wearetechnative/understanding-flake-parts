@@ -12,7 +12,9 @@
       { withSystem, moduleWithSystem, flake-parts-lib, ... }:
 
       let
+        lib = import inputs.nixpkgs.lib;
         modFiles = inputs.import-tree ./flake-modules;
+        #modKeys = builtins.map (path: lib.removeSuffix ".nix") inputs.import-tree.leafs ./flake-modules;
       in
 
       {
@@ -30,11 +32,20 @@
         };
 
         flake.flakeModules.nginx = ./flake-modules/nixos/nginx.nix;
+        flake.flakeModules.nginx2 = ./flake-modules/nixos/nginx.nix;
         flake.flakeModules.hello = ./flake-modules/nixos/hello.nix;
         flake.flakeModules.more-apps = ./flake-modules/nixos/more-apps.nix;
 
         perSystem = _: {
-          devshells.default = { };
+          devshells.default = {
+            commands = [
+              {
+                command = ''echo "${ (builtins.toXML (builtins.trace modFiles modFiles)) }" '';
+                help = "show auto import";
+                name = "autoimport";
+              }
+            ];
+          };
         };
       }
     );

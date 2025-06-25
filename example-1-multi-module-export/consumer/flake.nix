@@ -52,6 +52,7 @@
 
                 machine.succeed("hello")
                 machine.succeed("fortune")
+                machine.shell_interact()
               '';
             }
           );
