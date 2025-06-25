@@ -12,38 +12,37 @@
 
     flake-parts.lib.mkFlake { inherit inputs; } (
       { withSystem, moduleWithSystem, flake-parts-lib, ... }:
-      #let
-      #inherit (flake-parts-lib) importApply;
-      #foo-flake-mod = importApply ./flake-modules/foo { inherit withSystem moduleWithSystem importApply; };
-      #in
       {
         imports = [
           inputs.devshell.flakeModule
         ];
-
-        #imports = [ foo-flake-mod ];
 
         systems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ];
 
         perSystem = _: {
           devshells.default = { };
 
-          checks.foo-nixos-module = withSystem "x86_64-linux" (
+          checks.services-nixos-module = withSystem "x86_64-linux" (
 
             { config, pkgs, ... }:
 
             pkgs.testers.runNixOSTest {
 
-              name = "nginx-nixos-module";
+              name = "services-nixos-module";
               nodes.machine1 = { config, pkgs, ... }: {
                 imports = [
                   inputs.provider.flakeModules.cron
+                  inputs.provider.flakeModules.nginx
                 ];
+                example1.cron.enable = true;
+                example1.nginx.enable = true;
               };
 
               testScript = ''
                 _, output = machine.systemctl("status cron")
-                assert "Hello, world" in output
+                assert "cron" in output
+                _, output = machine.systemctl("status nginx")
+                assert "nginx" in output
               '';
             }
           );

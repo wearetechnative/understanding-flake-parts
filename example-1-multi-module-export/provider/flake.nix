@@ -20,8 +20,8 @@
           imports = [ ./flake-modules/nixos/cron.nix ];
         };
 
-        #flake.flakeModules.cron = ./flake-modules/nixos/cron.nix;
         flake.flakeModules.nginx = ./flake-modules/nixos/nginx.nix;
+        flake.flakeModules.hello = ./flake-modules/nixos/hello.nix;
 
         perSystem = _: {
           devshells.default = { };
