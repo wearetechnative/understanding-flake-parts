@@ -22,7 +22,7 @@
         ];
 
         flake.flakeModules.default = {
-          imports = [] ++ modFiles;
+          imports = [ modFiles ];
         };
 
         flake.flakeModules.cron = { pkgs, ... }: {
