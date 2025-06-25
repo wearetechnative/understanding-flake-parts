@@ -11,6 +11,10 @@
     flake-parts.lib.mkFlake { inherit inputs; } (
       { withSystem, moduleWithSystem, flake-parts-lib, ... }:
 
+      let
+        modFiles = (inputs.import-tree ./flake-modules);
+      in
+
       {
         systems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ];
         imports = [
@@ -18,9 +22,7 @@
         ];
 
         flake.flakeModules.default = {
-          imports = [
-            (inputs.import-tree ./flake-modules)
-          ];
+          imports = [] ++ modFiles;
         };
 
         flake.flakeModules.cron = { pkgs, ... }: {
