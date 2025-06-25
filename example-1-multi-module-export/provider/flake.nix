@@ -12,7 +12,7 @@
       { withSystem, moduleWithSystem, flake-parts-lib, ... }:
 
       let
-        modFiles = (inputs.import-tree ./flake-modules);
+        modFiles = inputs.import-tree ./flake-modules;
       in
 
       {
