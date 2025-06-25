@@ -33,9 +33,11 @@
                 imports = [
                   inputs.provider.flakeModules.cron
                   inputs.provider.flakeModules.nginx
+                  inputs.provider.flakeModules.hello
                 ];
                 example1.cron.enable = true;
                 example1.nginx.enable = true;
+                example1.hello.enable = true;
               };
 
               testScript = ''
@@ -43,6 +45,8 @@
                 assert "cron" in output
                 _, output = machine.systemctl("status nginx")
                 assert "nginx" in output
+
+                machine.succeed("hello")
               '';
             }
           );

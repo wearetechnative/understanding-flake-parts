@@ -22,6 +22,7 @@
 
         flake.flakeModules.nginx = ./flake-modules/nixos/nginx.nix;
         flake.flakeModules.hello = ./flake-modules/nixos/hello.nix;
+        flake.flakeModules.more-apps = ./flake-modules/nixos/more-apps.nix;
 
         perSystem = _: {
           devshells.default = { };
