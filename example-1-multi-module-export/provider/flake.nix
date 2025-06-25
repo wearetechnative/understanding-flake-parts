@@ -16,6 +16,15 @@
           inputs.devshell.flakeModule
         ];
 
+        flake.flakeModules.default = {
+          imports = [
+            ./flake-modules/nixos/cron.nix
+            ./flake-modules/nixos/nginx.nix
+            ./flake-modules/nixos/hello.nix
+            ./flake-modules/nixos/more-apps.nix
+          ];
+        };
+
         flake.flakeModules.cron = { pkgs, ... }: {
           imports = [ ./flake-modules/nixos/cron.nix ];
         };

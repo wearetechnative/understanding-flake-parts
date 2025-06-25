@@ -31,10 +31,11 @@
               name = "services-nixos-module";
               nodes.machine1 = { config, pkgs, ... }: {
                 imports = [
-                  inputs.provider.flakeModules.cron
-                  inputs.provider.flakeModules.nginx
-                  inputs.provider.flakeModules.hello
-                  inputs.provider.flakeModules.more-apps
+                  inputs.provider.flakeModule
+                  #                  inputs.provider.flakeModules.cron
+                  #                  inputs.provider.flakeModules.nginx
+                  #                  inputs.provider.flakeModules.hello
+                  #                  inputs.provider.flakeModules.more-apps
                 ];
                 example1.cron.enable = true;
                 example1.nginx.enable = true;
@@ -42,6 +43,7 @@
                 example1.more-apps.enable = true;
               };
 
+              # This is Python calling a testing api
               testScript = ''
                 _, output = machine.systemctl("status cron")
                 assert "cron" in output
